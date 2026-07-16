@@ -259,6 +259,7 @@ function restartGame() {
 
 function startGame() {
     startScreen.style.display = "none";
+    goScreen.classList.add("hidden");
     gameRunning = true;
     //createPipe();
     animate();
