@@ -258,7 +258,7 @@ function restartGame() {
 }
 
 function startGame() {
-    flapStart.style.display = "none";
+    startScreen.style.display = "none";
     gameRunning = true;
     //createPipe();
     animate();
