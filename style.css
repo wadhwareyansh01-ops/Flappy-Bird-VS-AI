@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to bottom, #007a8a, #5dd1ff, #dff6ff);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    margin-top: 20px;
+    color: #151414;
+    font-size: 2.5rem;
+}
+
+#flappyScore {
+    display: flex;
+    gap: 150px;
+    margin: 15px 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #222222;
+}
+
+#flappyBoard {
+    background-color: #70c5ce;
+    border: 5px solid #222222;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+#flapIns {
+    font-size: 1.1rem;
+    color: #444444;
+    margin-top: 15px;
+
+}
+
+#divOver {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    z-index: 10;
+}
+
+#divOver h3 {
+    margin-bottom: 20px;
+    color: #222222;
+}
+
+#divOver button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #017f8a;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#divOver button:hover {
+    background-color: #01a5bb;
+}
+
+marquee {
+    font-size: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width:850px) {
+    #flappyBoard {
+        width: 95%;
+        height: auto;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #flappyScore {
+        gap: 20px;
+        font-size: 1.1rem;
+    }
+}
+
+#flapStart {
+    position: fixed;
+    inset: 0;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+#flapStart h1 {
+    color: #151414;
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+#flapStart p {
+    color: #222222;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+#flapStart button {
+    padding: 15px 35px;
+    font-size: 1.4rem;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(to bottom, #ffcc00, #01a5bb, #ff0000);
+    color: #dff6ff;
+    cursor: pointer;
+    transition: 0.4s;
+    font-weight: bolder;
+}
+
+#flapStart button:hover {
+    transform: scale(1.08);
+}
