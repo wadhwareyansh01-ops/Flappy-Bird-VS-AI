@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <!-- saved from url=(0045)http://127.0.0.1:5500/flappy_B-ird/index.html -->
-<html><head>
-	<meta name="google-site-verification" content="zDfn2sl5xTP5o-X9sPmzwYp7t9R6TMOYX8TawxiJrhg" />
+<html>
+
+<head>
+    <meta name="google-site-verification" content="zDfn2sl5xTP5o-X9sPmzwYp7t9R6TMOYX8TawxiJrhg" />
     <title>Flappy Bird VS AI Reyansh Wadhwa</title>
     <link rel="stylesheet" href="style.css">
-<link rel="icon" type="image/png" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBtKTR7flXbRJVo8e8tR30evMzu_j4uGb2yHoOnEBM7w&s">
+    <link rel="icon" type="image/png"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBtKTR7flXbRJVo8e8tR30evMzu_j4uGb2yHoOnEBM7w&s">
 </head>
 
 <body>
@@ -15,61 +18,64 @@
     </div>
     <div id="flapStart">
         <h1>Flappy Bird🐥🐥🐥 VS AI🤖🤖🤖</h1>
-        <p>Press the <b>SPACEBAR</b> to make your bird flap flap<br>
-            <span><b>Note: Your character is colored "Yellow" </b></span>
-			   <p>Display Tip: Set your browser screen size to 67% zoom via the settings menu (click ⁝ and zoom out) for the optimal layout.</p>
-        </p>
+        <div>
+            <p>Press the <b>SPACEBAR</b> to make your bird flap.<br>
+                <span><b>Note: Your character is colored "Yellow"</b></span>
+            </p>
+        </div>
         <button onclick="startGame()">Start Game</button>
     </div>
     <canvas id="flappyBoard" width="800" height="600"></canvas>
 
     <div id="flapIns">
-        Press <b>SPACE</b> to make your bird flap flap.<br>
-        <span><b>Note: Your color is "Yellow" </b></span>
+        Press <b>SPACE</b> to make your bird flap.<br>
+        <span><b>Note: Your color is "Yellow"</b></span>
     </div>
     <div id="divOver" class="hidden">
         <h3 id="flappyOver">🤖 AI Wins!</h3>
         <button onclick="restartGame()">Restart</button>
     </div>
     <script src="script.js"></script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
 
 
-</body></html>
+</body>
+
+</html>
