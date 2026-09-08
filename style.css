@@ -11,35 +11,43 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    padding: 10px;
+    overflow-x: hidden;
 }
 
 h1 {
-    margin-top: 20px;
+    margin-top: 10px;
     color: #151414;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    text-align: center;
 }
 
 #flappyScore {
     display: flex;
-    gap: 150px;
-    margin: 15px 0;
+    gap: 100px;
+    margin: 10px 0;
     font-size: 1.3rem;
     font-weight: bold;
     color: #222222;
 }
 
+/* FIX: Scales down gracefully on smaller screens without hiding content */
 #flappyBoard {
     background-color: #70c5ce;
     border: 5px solid #222222;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    max-height: 70vh;
+    height: auto;
+    object-fit: contain;
 }
 
 #flapIns {
     font-size: 1.1rem;
-    color: #444444;
-    margin-top: 15px;
-
+    color: #222222;
+    margin-top: 10px;
+    text-align: center;
 }
 
 #divOver {
@@ -80,25 +88,11 @@ marquee {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
+    /* Forces the game screen to hide/show reliably */
 }
 
-@media (max-width:850px) {
-    #flappyBoard {
-        width: 95%;
-        height: auto;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    #flappyScore {
-        gap: 20px;
-        font-size: 1.1rem;
-    }
-}
-
+/* --- Start Screen Styling --- */
 #flapStart {
     position: fixed;
     inset: 0;
@@ -108,21 +102,25 @@ marquee {
     justify-content: center;
     align-items: center;
     z-index: 100;
+    padding: 20px;
 }
 
 #flapStart h1 {
     color: #151414;
     font-size: 3rem;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 #flapStart p {
     color: #222222;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    max-width: 600px;
 }
 
+/* RESTORED: Your original custom multi-color button gradient */
 #flapStart button {
     padding: 15px 35px;
     font-size: 1.4rem;
@@ -137,4 +135,24 @@ marquee {
 
 #flapStart button:hover {
     transform: scale(1.08);
+}
+
+/* Mobile Responsiveness Improvements */
+@media (max-width: 850px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    #flappyScore {
+        gap: 40px;
+        font-size: 1.1rem;
+    }
+
+    #flapStart h1 {
+        font-size: 2.2rem;
+    }
+
+    #flapStart p {
+        font-size: 1.1rem;
+    }
 }
