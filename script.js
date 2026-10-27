@@ -31,8 +31,13 @@ let ai = {
     alive: true
 };
 let pipes = [];
-document.addEventListener("keydown", (e) => {
-    if (e.code === "Space" && player.alive) {
+canvas.addEventListener("click", () => {
+    if (gameRunning && player.alive) {
+        player.velocity = strength;
+    }
+});
+document.addEventListener("keydown", (event) => {
+    if (event.code === "Space" && gameRunning && player.alive) {
         player.velocity = strength;
     }
 });
