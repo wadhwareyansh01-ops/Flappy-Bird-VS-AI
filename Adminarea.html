@@ -1,0 +1,451 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>EAT BUTT CODE</h1>
+    <br><br>
+    <p>Script 1:
+
+        local Players = game:GetService("Players")
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local MarketplaceService = game:GetService("MarketplaceService")
+
+        -- REMOTES
+        local buyButt = Instance.new("RemoteEvent")
+        buyButt.Name = "BuyButt"
+        buyButt.Parent = ReplicatedStorage
+
+        local shopMessage = Instance.new("RemoteEvent")
+        shopMessage.Name = "ShopMessage"
+        shopMessage.Parent = ReplicatedStorage
+
+        -- FIGHTER SHOP
+        local butts = {
+        ["Starter Butt"] = {wins = 0, power = 1},
+        ["Grass Butt"] = {wins = 3, power = 4},
+        ["Rock Butt"] = {wins = 10, power = 12},
+        ["Fire Butt"] = {wins = 25, power = 30},
+        ["Gem Butt"] = {wins = 75, power = 100},
+        ["Galaxy Butt"] = {wins = 250, power = 500}
+        }
+
+        -- DEVELOPER PRODUCT IDS
+        -- Replace these with your real IDs.
+        local PRODUCTS = {
+        [1111111111] = "OwnButt",
+        [2222222222] = "Power",
+        [3333333333] = "Dollars",
+        [4444444444] = "Gems",
+        [5555555555] = "VIP"
+        }
+
+        -- PLAYER DATA
+        Players.PlayerAdded:Connect(function(player)
+        local stats = Instance.new("Folder")
+        stats.Name = "leaderstats"
+        stats.Parent = player
+
+        local wins = Instance.new("IntValue")
+        wins.Name = "Wins"
+        wins.Parent = stats
+
+        local dollars = Instance.new("IntValue")
+        dollars.Name = "Dollars"
+        dollars.Parent = stats
+
+        local gems = Instance.new("IntValue")
+        gems.Name = "Gems"
+        gems.Parent = stats
+
+        local power = Instance.new("IntValue")
+        power.Name = "Power"
+        power.Value = 1
+        power.Parent = player
+
+        local equipped = Instance.new("StringValue")
+        equipped.Name = "EquippedButt"
+        equipped.Value = "Starter Butt"
+        equipped.Parent = player
+
+        local ownChomps = Instance.new("IntValue")
+        ownChomps.Name = "OwnButtChomps"
+        ownChomps.Parent = player
+
+        local vip = Instance.new("BoolValue")
+        vip.Name = "VIP"
+        vip.Parent = player
+
+        -- REWARD THE PLAYER WHEN THEY DEFEAT SOMEONE
+        local function setupCharacter(character)
+        local humanoid = character:WaitForChild("Humanoid")
+
+        humanoid.Died:Connect(function()
+        local creator = humanoid:FindFirstChild("creator")
+
+        if creator and creator.Value and creator.Value ~= player then
+        local attacker = creator.Value
+        local attackerStats = attacker:FindFirstChild("leaderstats")
+
+        if attackerStats then
+        local attackerWins = attackerStats:FindFirstChild("Wins")
+        local attackerGems = attackerStats:FindFirstChild("Gems")
+
+        if attackerWins then
+        attackerWins.Value += 1
+        end
+
+        if attackerGems then
+        attackerGems.Value += 10
+        end
+        end
+        end
+        end)
+        end
+
+        player.CharacterAdded:Connect(setupCharacter)
+
+        if player.Character then
+        setupCharacter(player.Character)
+        end
+        end)
+
+        -- BUY / EQUIP FIGHTERS
+        buyButt.OnServerEvent:Connect(function(player, buttName)
+        local butt = butts[buttName]
+        if not butt then return end
+
+        local stats = player:FindFirstChild("leaderstats")
+        local power = player:FindFirstChild("Power")
+        local equipped = player:FindFirstChild("EquippedButt")
+
+        if not stats or not power or not equipped then return end
+
+        local wins = stats:FindFirstChild("Wins")
+        if not wins then return end
+
+        if wins.Value < butt.wins then shopMessage:FireClient( player, "You need " .. butt.wins .. " Wins to unlock " ..
+            buttName .. "!" ) return end equipped.Value=buttName power.Value=butt.power shopMessage:FireClient(
+            player, "Equipped " .. buttName .. "! Power: " .. butt.power ) end) -- DEVELOPER PRODUCT REWARDS local
+            function giveReward(player, reward) if reward=="OwnButt" then player.OwnButtChomps.Value +=1 elseif
+            reward=="Power" then player.Power.Value *=2 elseif reward=="Dollars" then player.leaderstats.Dollars.Value
+            +=5000 elseif reward=="Gems" then player.leaderstats.Gems.Value +=500 elseif reward=="VIP" then
+            player.VIP.Value=true end end -- KEEP ONLY ONE ProcessReceipt HANDLER IN YOUR GAME
+            MarketplaceService.ProcessReceipt=function(receipt) local player=Players:GetPlayerByUserId(receipt.PlayerId)
+            if not player then return Enum.ProductPurchaseDecision.NotProcessedYet end local
+            reward=PRODUCTS[receipt.ProductId] if not reward then warn("Unknown Developer Product:", receipt.ProductId)
+            return Enum.ProductPurchaseDecision.NotProcessedYet end giveReward(player, reward) return
+            Enum.ProductPurchaseDecision.PurchaseGranted end </p>
+            <br><br>
+            <p>Script 2:
+                local tool = script.Parent
+                local Players = game:GetService("Players")
+
+                local DAMAGE_MULTIPLIER = 10
+                local RANGE = 8
+                local COOLDOWN = 1.2
+
+                local busy = false
+
+                tool.Activated:Connect(function()
+                if busy then return end
+                busy = true
+
+                local character = tool.Parent
+                local attacker = Players:GetPlayerFromCharacter(character)
+
+                if not attacker then
+                busy = false
+                return
+                end
+
+                local root = character:FindFirstChild("HumanoidRootPart")
+                local power = attacker:FindFirstChild("Power")
+
+                if not root or not power then
+                busy = false
+                return
+                end
+
+                local targetHumanoid
+                local nearestDistance = RANGE
+
+                for _, enemy in ipairs(Players:GetPlayers()) do
+                if enemy ~= attacker and enemy.Character then
+                local enemyRoot = enemy.Character:FindFirstChild("HumanoidRootPart")
+                local humanoid = enemy.Character:FindFirstChildOfClass("Humanoid")
+
+                if enemyRoot and humanoid and humanoid.Health > 0 then
+                local distance = (root.Position - enemyRoot.Position).Magnitude
+
+                if distance < nearestDistance then nearestDistance=distance targetHumanoid=humanoid end end end end if
+                    targetHumanoid then local creator=targetHumanoid:FindFirstChild("creator") if not creator then
+                    creator=Instance.new("ObjectValue") creator.Name="creator" creator.Parent=targetHumanoid end
+                    creator.Value=attacker targetHumanoid:TakeDamage(power.Value * DAMAGE_MULTIPLIER) print("CARTOON
+                    CHOMP!") else -- USE A PURCHASED SELF-CHOMP CHARGE local
+                    charges=attacker:FindFirstChild("OwnButtChomps") local
+                    humanoid=character:FindFirstChildOfClass("Humanoid") if charges and charges.Value> 0 and humanoid
+                    then
+                    charges.Value -= 1
+                    humanoid.Health = math.min(
+                    humanoid.MaxHealth,
+                    humanoid.Health + 20
+                    )
+
+                    print("SELF CHOMP! +20 HEALTH")
+                    end
+                    end
+
+                    task.wait(COOLDOWN)
+                    busy = false
+                    end)
+
+            </p>
+            <br><br>
+            <p>Script 3:
+
+                local Players = game:GetService("Players")
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                local MarketplaceService = game:GetService("MarketplaceService")
+
+                local player = Players.LocalPlayer
+
+                local buyButt = ReplicatedStorage:WaitForChild("BuyButt")
+                local shopMessage = ReplicatedStorage:WaitForChild("ShopMessage")
+
+                -- USE THE SAME REAL PRODUCT IDS AS GameManager
+                local products = {
+                {name = "🍑 EAT YOUR OWN BUTT", price = "100 ROBUX", id = 1111111111},
+                {name = "⚡ 2X POWER", price = "75 ROBUX", id = 2222222222},
+                {name = "💰 5000 DOLLARS", price = "50 ROBUX", id = 3333333333},
+                {name = "💎 500 GEMS", price = "25 ROBUX", id = 4444444444},
+                {name = "👑 VIP", price = "250 ROBUX", id = 5555555555}
+                }
+
+                local fighters = {
+                {name = "Starter Butt", wins = 0, power = 1},
+                {name = "Grass Butt", wins = 3, power = 4},
+                {name = "Rock Butt", wins = 10, power = 12},
+                {name = "Fire Butt", wins = 25, power = 30},
+                {name = "Gem Butt", wins = 75, power = 100},
+                {name = "Galaxy Butt", wins = 250, power = 500}
+                }
+
+                local gui = Instance.new("ScreenGui")
+                gui.Name = "GameUI"
+                gui.ResetOnSpawn = false
+                gui.Parent = player:WaitForChild("PlayerGui")
+
+                local function round(object)
+                local corner = Instance.new("UICorner")
+                corner.CornerRadius = UDim.new(0, 12)
+                corner.Parent = object
+                end
+
+                -- POPUP
+                local function popup(message, buttonText)
+                local frame = Instance.new("Frame")
+                frame.Size = UDim2.fromOffset(400, 340)
+                frame.Position = UDim2.new(0.5, -200, 0.5, -170)
+                frame.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+                frame.Parent = gui
+                round(frame)
+
+                local text = Instance.new("TextLabel")
+                text.Size = UDim2.new(1, -24, 1, -75)
+                text.Position = UDim2.fromOffset(12, 10)
+                text.BackgroundTransparency = 1
+                text.Text = message
+                text.TextColor3 = Color3.new(1, 1, 1)
+                text.TextSize = 20
+                text.TextWrapped = true
+                text.Parent = frame
+
+                local button = Instance.new("TextButton")
+                button.Size = UDim2.fromOffset(180, 45)
+                button.Position = UDim2.new(0.5, -90, 1, -55)
+                button.Text = buttonText
+                button.TextScaled = true
+                button.BackgroundColor3 = Color3.fromRGB(120, 40, 255)
+                button.TextColor3 = Color3.new(1, 1, 1)
+                button.Parent = frame
+                round(button)
+
+                button.MouseButton1Click:Connect(function()
+                frame:Destroy()
+                end)
+                end
+
+                -- WELCOME
+                popup(
+                "👋 WELCOME TO EAT BUTT!\n\nJUMP TO FIND HOW TO PLAY!",
+                "OK!"
+                )
+
+                -- FIRST JUMP ONLY, EVEN AFTER RESPAWNING
+                local tutorialShown = false
+
+                local function setupCharacter(character)
+                local humanoid = character:WaitForChild("Humanoid")
+
+                humanoid.Jumping:Connect(function(active)
+                if active and not tutorialShown then
+                tutorialShown = true
+
+                popup(
+                "🎮 HOW TO PLAY\n\n" ..
+                "📍 SPAWN\n\n" ..
+                "🛒 SHOP\n\n" ..
+                "🟢 STARTER BUTT = FREE / 0 WINS\n\n" ..
+                "⚔️ FIGHT OTHER BUTTS\n\n" ..
+                "🏆 WIN = +1 WIN\n\n" ..
+                "🔓 UNLOCK STRONGER BUTTS\n\n" ..
+                "😋 DEFEAT THEM = CARTOON CHOMP\n\n" ..
+                "💪 BECOME STRONGER!",
+                "LET'S PLAY!"
+                )
+                end
+                end)
+                end
+
+                player.CharacterAdded:Connect(setupCharacter)
+
+                if player.Character then
+                setupCharacter(player.Character)
+                end
+
+                -- NOTIFICATION POPUPS
+                shopMessage.OnClientEvent:Connect(function(message)
+                popup(message, "OK!")
+                end)
+
+                -- BUTTON CREATOR
+                local function makeButton(parent, text, position, size, color)
+                local button = Instance.new("TextButton")
+                button.Size = size
+                button.Position = position
+                button.Text = text
+                button.TextScaled = true
+                button.TextWrapped = true
+                button.BackgroundColor3 = color
+                button.TextColor3 = Color3.new(1, 1, 1)
+                button.Parent = parent
+                round(button)
+                return button
+                end
+
+                -- MAIN SHOP BUTTONS
+                local fighterButton = makeButton(
+                gui,
+                "🛒 BUTT SHOP",
+                UDim2.fromOffset(20, 150),
+                UDim2.fromOffset(160, 50),
+                Color3.fromRGB(30, 130, 90)
+                )
+
+                local robuxButton = makeButton(
+                gui,
+                "💎 ROBUX SHOP",
+                UDim2.fromOffset(20, 210),
+                UDim2.fromOffset(160, 50),
+                Color3.fromRGB(120, 40, 255)
+                )
+
+                -- SHOP WINDOW CREATOR
+                local function makeWindow(titleText)
+                local frame = Instance.new("Frame")
+                frame.Size = UDim2.fromOffset(380, 430)
+                frame.Position = UDim2.new(0.5, -190, 0.5, -215)
+                frame.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+                frame.Visible = false
+                frame.Parent = gui
+                round(frame)
+
+                local title = Instance.new("TextLabel")
+                title.Size = UDim2.new(1, -55, 0, 55)
+                title.Text = titleText
+                title.TextScaled = true
+                title.TextColor3 = Color3.new(1, 1, 1)
+                title.BackgroundTransparency = 1
+                title.Parent = frame
+
+                local close = makeButton(
+                frame,
+                "X",
+                UDim2.new(1, -48, 0, 5),
+                UDim2.fromOffset(40, 40),
+                Color3.fromRGB(180, 40, 40)
+                )
+
+                close.MouseButton1Click:Connect(function()
+                frame.Visible = false
+                end)
+
+                local list = Instance.new("ScrollingFrame")
+                list.Size = UDim2.new(1, -20, 1, -70)
+                list.Position = UDim2.fromOffset(10, 60)
+                list.BackgroundTransparency = 1
+                list.ScrollBarThickness = 6
+                list.Parent = frame
+
+                local layout = Instance.new("UIListLayout")
+                layout.Padding = UDim.new(0, 8)
+                layout.Parent = list
+
+                return frame, list, layout
+                end
+
+                -- FIGHTER SHOP
+                local fighterFrame, fighterList, fighterLayout =
+                makeWindow("🍑 BUTT SHOP")
+
+                for _, fighter in ipairs(fighters) do
+                local button = makeButton(
+                fighterList,
+                fighter.name .. "\n" ..
+                fighter.wins .. " WINS REQUIRED | POWER " ..
+                fighter.power,
+                UDim2.new(),
+                UDim2.new(1, -10, 0, 65),
+                Color3.fromRGB(45, 90, 130)
+                )
+
+                button.MouseButton1Click:Connect(function()
+                buyButt:FireServer(fighter.name)
+                end)
+                end
+
+                fighterList.CanvasSize = UDim2.new(
+                0, 0, 0,
+                #fighters * 73
+                )
+
+                fighterButton.MouseButton1Click:Connect(function()
+                fighterFrame.Visible = not fighterFrame.Visible
+                end)
+
+                -- ROBUX SHOP
+                local robuxFrame, robuxList =
+                makeWindow("💎 ROBUX SHOP")
+
+                for _, product in ipairs(products) do
+                local button = makeButton(
+                robuxList,
+                product.name .. "\n" .. product.price,
+                UDim2.new(),
+                UDim2.new(1, -10, 0, 65),
+                Color3.fromRGB(85, 40, 140)
+                )
+
+                button.MouseButton1Click:Connect(function()
+                if product.id >= 1111111111 and product.id <= 5555555555 then warn("Replace the placeholder product
+                    ID!") return end MarketplaceService:PromptProductPurchase( player, product.id ) end) end
+                    robuxList.CanvasSize=UDim2.new( 0, 0, 0, #products * 73 )
+                    robuxButton.MouseButton1Click:Connect(function() robuxFrame.Visible=not robuxFrame.Visible end) </p>
+
+
+</body>
+
+</html>
