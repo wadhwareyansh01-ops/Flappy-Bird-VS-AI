@@ -269,3 +269,7 @@ function startGame() {
     //createPipe();
     animate();
 }
+
+document.getElementById("admins").addEventListener("click", function () {
+    window.location.href = "adminpass.html";
+});
