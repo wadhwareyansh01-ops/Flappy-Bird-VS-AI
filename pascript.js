@@ -3,7 +3,7 @@ document.getElementById("admin-login").addEventListener("submit", (event) => {
 
 	const password = document.getElementById("unpass").value;
 
-	if (password === "9v9v98") {
+	if (password === "vishan") {
 		window.location.href = "./adminarea.html";
 	}
 });
