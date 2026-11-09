@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rate Flappy Bird vs AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #08252d, #020608 75%);
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .rating-box {
+            width: 90%;
+            max-width: 430px;
+            padding: 35px 25px;
+            text-align: center;
+            background: #071419;
+            border: 2px solid #00eaff;
+            border-radius: 22px;
+            box-shadow: 0 0 20px #00eaff66,
+                inset 0 0 20px #00eaff18;
+        }
+
+        h1 {
+            color: #00eaff;
+            text-shadow: 0 0 12px #00eaff;
+        }
+
+        p {
+            color: #b8dce2;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin: 25px 0;
+        }
+
+        .star {
+            font-size: 43px;
+            color: #40545a;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: 0.2s;
+            padding: 0;
+        }
+
+        .star.active {
+            color: #00eaff;
+            text-shadow: 0 0 10px #00eaff,
+                0 0 25px #00eaff;
+            transform: scale(1.15);
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            margin: 12px 0;
+            background: #0b2027;
+            border: 1px solid #00eaff;
+            border-radius: 9px;
+            color: white;
+            outline: none;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 14px;
+            margin-top: 12px;
+            background: #00eaff;
+            color: #001014;
+            border: none;
+            border-radius: 9px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit:hover {
+            box-shadow: 0 0 20px #00eaff;
+            transform: scale(1.03);
+        }
+
+        .submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 18px;
+            color: #00eaff;
+        }
+
+        .admin {
+            margin-top: 25px;
+            padding: 10px;
+            color: #8caeb5;
+            background: transparent;
+            border: 1px solid #34545c;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #adminPanel {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid #00eaff;
+            padding-top: 15px;
+        }
+
+        .rating-entry {
+            padding: 10px;
+            margin: 8px 0;
+            background: #10252c;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="rating-box">
+
+        <h1>🐦 Flappy Bird vs AI</h1>
+        <p>Enjoyed the game? Rate it!</p>
+
+        <div class="stars">
+            <button class="star" type="button" data-value="1">★</button>
+            <button class="star" type="button" data-value="2">★</button>
+            <button class="star" type="button" data-value="3">★</button>
+            <button class="star" type="button" data-value="4">★</button>
+            <button class="star" type="button" data-value="5">★</button>
+        </div>
+
+        <p id="ratingText">Select your stars ⭐</p>
+
+        <input id="playerName" type="text" placeholder="Your name (optional)" maxlength="30">
+
+        <button class="submit" id="submitButton" type="button" onclick="submitRating()">
+            SUBMIT RATING
+        </button>
+
+        <div id="message"></div>
+
+        <button class="admin" type="button" onclick="openAdmin()">
+            🔒 Admin Panel
+        </button>
+
+        <div id="adminPanel">
+            <h3>⭐ Player Ratings</h3>
+            <p id="summary"></p>
+            <div id="ratingList"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const STORAGE_KEY = "flappyBirdAIRatings";
+        const ALREADY_RATED_KEY = "flappyBirdAIAlreadyRated";
+
+        // CHANGE THIS EMAIL!
+        const YOUR_EMAIL = "YOUR_EMAIL@example.com";
+
+        // Select stars
+        let selectedRating = 0;
+
+        const stars = document.querySelectorAll(".star");
+
+        function getRatings() {
+            return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        }
+
+        function updateStars() {
+            stars.forEach(star => {
+                const value = Number(star.dataset.value);
+
+                star.classList.toggle(
+                    "active",
+                    value <= selectedRating
+                );
+            });
+
+            document.getElementById("ratingText").textContent =
+                selectedRating
+                    ? selectedRating + " / 5 stars ⭐"
+                    : "Select your stars ⭐";
+        }
+
+        stars.forEach(star => {
+            star.addEventListener("click", () => {
+                selectedRating = Number(star.dataset.value);
+                updateStars();
+            });
+        });
+
+        // Submit rating
+        function submitRating() {
+            const message = document.getElementById("message");
+
+            if (selectedRating === 0) {
+                message.textContent = "Please select your stars!";
+                return;
+            }
+
+            message.textContent = "⭐ Thanks for rating our game!";
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1800);
+        }
+        // Admin panel
+        function openAdmin() {
+
+            const password = prompt("Enter admin password:");
+
+            if (password !== "1234") {
+                alert("Wrong password!");
+                return;
+            }
+
+            const panel = document.getElementById("adminPanel");
+            panel.style.display = "block";
+
+            const ratings = getRatings();
+            const total = ratings.length;
+
+            const average = total
+                ? (
+                    ratings.reduce((sum, r) => sum + r.stars, 0) / total
+                ).toFixed(1)
+                : "0";
+
+            document.getElementById("summary").textContent =
+                "Total ratings: " + total +
+                " | Average: " + average + " / 5 ⭐";
+
+            const list = document.getElementById("ratingList");
+            list.replaceChildren();
+
+            ratings.forEach(rating => {
+
+                const entry = document.createElement("div");
+                entry.className = "rating-entry";
+
+                const name = document.createElement("strong");
+                name.textContent = rating.name;
+
+                const score = document.createElement("div");
+                score.textContent = "⭐".repeat(rating.stars);
+
+                entry.append(name, score);
+                list.appendChild(entry);
+
+            });
+        }
+
+        // Already rated check
+        if (localStorage.getItem(ALREADY_RATED_KEY)) {
+            document.getElementById("submitButton").disabled = true;
+
+            document.getElementById("message").textContent =
+                "You have already rated this game!";
+        }
+    </script>
+
+</body>
+
+</html>
